@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Zato.WOT.Blitz\Zato.WOT.Blitz.csproj" />
+    <ProjectReference Include="..\Zato.WOT.Core\Zato.WOT.Core.csproj" />
+  </ItemGroup>
+
+</Project>
