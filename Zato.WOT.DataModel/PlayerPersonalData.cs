@@ -125,6 +125,16 @@ namespace Zato.WOT.DataModel
 
 		[JsonProperty("dropped_capture_points")]
 		public long DroppedCapturePoints { get; set; }
+
+		[JsonIgnore]
+		public string WinPercent
+		{
+			get
+			{
+				return (((double)this.Wins / (double)this.Battles) * (double)100).ToString("#.##");
+			}
+		}
+
 	}
 
 	public partial class Meta

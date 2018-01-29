@@ -33,5 +33,14 @@ namespace Zato.WOT.Core
 			var data = JsonHelper.FromJson<PlayerPersonalData>(await stringTask);
 			return (data, account_id);
 		}
+
+		public async Task<(PlayerVehicles data, long accountId)> GetAllPlayerVehicles(long account_id)
+		{
+			var client = new HttpClient();
+			var stringTask = client.GetStringAsync($"https://api.wotblitz.com/wotb/tanks/stats/?application_id={AppId}&account_id={account_id}");
+			var data = JsonHelper.FromJson<PlayerVehicles>(await stringTask);
+			return (data, account_id);
+		}
+
 	}
 }
