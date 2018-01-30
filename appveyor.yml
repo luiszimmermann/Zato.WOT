@@ -9,7 +9,7 @@ install:
   # Install repo specific stuff here
 before_build:
   - cmd: dotnet --version
-  - cmd: dotnet restore ./Zato.WOT/Zato.WOT.sln
+  - cmd: dotnet restore
 build_script:
   - cmd: dotnet publish ./Zato.WOT/Zato.WOT.Console/Zato.WOT.Console.csproj
 after_build:
