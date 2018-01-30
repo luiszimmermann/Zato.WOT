@@ -19,7 +19,7 @@ build_script:
   - cmd: dotnet publish %APPVEYOR_BUILD_FOLDER%\Zato.WOT.Console\Zato.WOT.Console.csproj
 after_build:
   # For once the build has completed
-  - cmd: 7z a zato.zip %APPVEYOR_BUILD_FOLDER%\Zato.WOT.Console\bin\Debug\netcoreapp2.0\publish\*
+  - cmd: 7z a zato.zip %APPVEYOR_BUILD_FOLDER%\Zato.WOT.Console\bin\Any CPU\Release\netcoreapp2.0\publish\*
 artifacts:
   - path: zato.zip
     name: zatowot
