@@ -1,5 +1,12 @@
 language: csharp
 mono: none
-dotnet: 2.0.0
+dotnet: 2.0.5
 script:
  - dotnet restore
+build:
+  verbosity: minimal
+after_build:
+- cmd: dotnet publish Zato.WOT.Console --output %appveyor_build_folder%\dist
+artifacts:
+- path: dist
+  name: dist.web
