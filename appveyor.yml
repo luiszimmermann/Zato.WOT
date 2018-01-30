@@ -12,7 +12,7 @@ before_build:
   - cmd: dotnet restore
   - cmd: dotnet build
 build_script:
-  - cmd: dotnet publish ./zato-wot\Zato.WOT.Console\Zato.WOT.Console.csproj
+  - cmd: dotnet publish C:\projects\zato-wot\Zato.WOT.Console\Zato.WOT.Console.csproj
 after_build:
   # For once the build has completed
 #artifacts:
@@ -22,7 +22,7 @@ after_build:
 clone_depth: 1
 test_script:
   # run the unit tests (requires changing into the test directory)
-  - cmd: cd Zato.WOT.xUnit
+  - cmd: cd C:\projects\zato-wot\Zato.WOT.xUnit
   - cmd: dotnet xunit
 on_finish :
   # any cleanup in here
