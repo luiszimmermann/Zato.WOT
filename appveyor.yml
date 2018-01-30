@@ -9,8 +9,6 @@ branches:
   - master
 init:
   - cmd: git config --global core.autocrlf true
-install:
-  # Install repo specific stuff here
 before_build:
   - cmd: dotnet --version
   - cmd: dotnet restore
@@ -18,18 +16,11 @@ before_build:
 build_script:
   - cmd: dotnet publish %APPVEYOR_BUILD_FOLDER%\Zato.WOT.Console\Zato.WOT.Console.csproj
 after_build:
-  # For once the build has completed
   - cmd: 7z a zato.zip "%APPVEYOR_BUILD_FOLDER%\Zato.WOT.Console\bin\Any CPU\Release\netcoreapp2.0\publish\*"
 artifacts:
   - path: zato.zip
     name: zatowot
 clone_depth: 1
-#test_script:
-#  # run the unit tests (requires changing into the test directory)
-#  - cmd: cd C:\projects\zato-wot\Zato.WOT.xUnit
-#  - cmd: dotnet xunit
-on_finish :
-  # any cleanup in here
 deploy:
   release: ZatoWOT-v$(appveyor_build_version)
   description: 'Preview'
