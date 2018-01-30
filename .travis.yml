@@ -9,3 +9,4 @@ install:
 - dotnet restore
 script:
 - dotnet build
+- dotnet test Zato.WOT.xUnit/Zato.WOT.xUnit.csproj
