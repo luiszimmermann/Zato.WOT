@@ -12,18 +12,18 @@ before_build:
   - cmd: dotnet restore
   - cmd: dotnet build
 build_script:
-  - cmd: dotnet publish C:\projects\zato-wot\Zato.WOT.Console\Zato.WOT.Console.csproj
+  - cmd: dotnet publish %APPVEYOR_BUILD_FOLDER%\Zato.WOT.Console\Zato.WOT.Console.csproj
 after_build:
   # For once the build has completed
-#artifacts:
-# - path: '\src\bin\Debug\netcoreapp1.1\publish'
-#   name: WebSite
-#   type: WebDeployPackage
+  - cmd: 7z a zato.zip %APPVEYOR_BUILD_FOLDER%\Zato.WOT.Console\bin\Debug\netcoreapp2.0\publish\*
+artifacts:
+  - path: zato.zip
+    name: zatowot
 clone_depth: 1
-test_script:
-  # run the unit tests (requires changing into the test directory)
-  - cmd: cd C:\projects\zato-wot\Zato.WOT.xUnit
-  - cmd: dotnet xunit
+#test_script:
+#  # run the unit tests (requires changing into the test directory)
+#  - cmd: cd C:\projects\zato-wot\Zato.WOT.xUnit
+#  - cmd: dotnet xunit
 on_finish :
   # any cleanup in here
 deploy: off
