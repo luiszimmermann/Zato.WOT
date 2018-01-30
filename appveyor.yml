@@ -30,4 +30,15 @@ clone_depth: 1
 #  - cmd: dotnet xunit
 on_finish :
   # any cleanup in here
-deploy: off
+deploy:
+  release: ZatoWOT-v$(appveyor_build_version)
+  description: 'Preview'
+  provider: GitHub
+  auth_token:
+    secure: NJjwo5e5lMYs1LKiiIakjtna/eOFsOWF5F1ICWz8+oLGIDIBd/dkUPiXmHl0RK+c
+  artifact: zato.zip
+  draft: false
+  prerelease: true
+  on:
+    branch: master
+    appveyor_repo_tag: true
