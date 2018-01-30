@@ -5,7 +5,7 @@ namespace Zato.WOT.LiteDB
 {
 	public class WotDB : IDisposable
 	{
-		public LiteDatabase db
+		public LiteDatabase Db
 		{
 			get
 			{

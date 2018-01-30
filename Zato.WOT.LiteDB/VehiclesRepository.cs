@@ -13,7 +13,7 @@ namespace Zato.WOT.LiteDB
 		{
 			try
 			{
-				var vehicles = db.GetCollection<VehicleInsideData>("VehicleInsideData");
+				var vehicles = Db.GetCollection<VehicleInsideData>("VehicleInsideData");
 
 				foreach (var item in vh.Data)
 				{
@@ -25,6 +25,7 @@ namespace Zato.WOT.LiteDB
 			}
 			catch (Exception ex)
 			{
+				Console.WriteLine(ex.Message);
 			}
 		}
 
@@ -32,13 +33,14 @@ namespace Zato.WOT.LiteDB
 		{
 			try
 			{
-				var vehicles = db.GetCollection<VehicleInsideData>("VehicleInsideData");
+				var vehicles = Db.GetCollection<VehicleInsideData>("VehicleInsideData");
 				var vh = vehicles.FindById(id);
 				if (vh == null) { vh = new VehicleInsideData(); }
 				return vh;
 			}
 			catch (Exception ex)
 			{
+				Console.WriteLine(ex.Message);
 				return null;
 			}
 		}
