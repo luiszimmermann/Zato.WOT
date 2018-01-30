@@ -1,8 +1,12 @@
 language: csharp
+os: linux
+sudo: required
 mono: none
 dotnet: 2.1.4
+env:
+- DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true DOTNET_CLI_TELEMETRY_OPTOUT=true
 script:
- - dotnet restore
+- dotnet restore && dotnet build
 after_build:
 - cmd: dotnet publish Zato.WOT.Console --output %appveyor_build_folder%\dist
 artifacts:
