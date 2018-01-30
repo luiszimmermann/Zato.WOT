@@ -9,7 +9,7 @@ namespace Zato.WOT.DataModel
 	using System;
 	using System.Net;
 	using System.Collections.Generic;
-
+	using Zato.WOT.Utils;
 	using Newtonsoft.Json;
 	using LiteDB;
 
@@ -76,8 +76,33 @@ namespace Zato.WOT.DataModel
 		//[JsonProperty("turrets")]
 		//public List<long> Turrets { get; set; }
 
+		[JsonIgnore]
+		public string DisplayName
+		{
+			get
+			{
+				return this.Tier.ToRoman() + " - " + this.Name;
+			}
+			set
+			{
+				this._Name = value;
+			}
+		}
+
 		[JsonProperty("name")]
-		public string Name { get; set; }
+		public string Name
+		{
+			get
+			{
+				return _Name ?? "NOT FOUND UPDATE DB";
+			}
+			set
+			{
+				this._Name = value;
+			}
+		}
+
+		private string _Name { get; set; }
 	}
 
 	public partial class Cost

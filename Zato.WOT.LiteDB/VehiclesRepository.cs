@@ -34,7 +34,7 @@ namespace Zato.WOT.LiteDB
 			{
 				var vehicles = db.GetCollection<VehicleInsideData>("VehicleInsideData");
 				var vh = vehicles.FindById(id);
-
+				if (vh == null) { vh = new VehicleInsideData(); }
 				return vh;
 			}
 			catch (Exception ex)

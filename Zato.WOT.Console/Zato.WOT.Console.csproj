@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="morelinq" Version="2.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Zato.WOT.Blitz\Zato.WOT.Blitz.csproj" />
     <ProjectReference Include="..\Zato.WOT.Core\Zato.WOT.Core.csproj" />
     <ProjectReference Include="..\Zato.WOT.LiteDB\Zato.WOT.LiteDB.csproj" />
