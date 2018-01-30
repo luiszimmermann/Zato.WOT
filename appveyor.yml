@@ -19,7 +19,7 @@ after_build:
   - cmd: 7z a zato.zip "%APPVEYOR_BUILD_FOLDER%\Zato.WOT.Console\bin\Any CPU\Release\netcoreapp2.0\publish\*"
 artifacts:
   - path: zato.zip
-    name: zatowot
+    name: ZatoWOT
 clone_depth: 1
 deploy:
   release: ZatoWOT-v$(appveyor_build_version)
