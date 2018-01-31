@@ -17,6 +17,7 @@ namespace Zato.WOT.xUnit
 			strings.Insert(new XUnitLiteDBTest() { Id = 1, Test = "xUnit" });
 			Assert.True(File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"WOTData.db"), "WOTData don't exists");
 			File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"WOTData.db");
+
 		}
 	}
 
