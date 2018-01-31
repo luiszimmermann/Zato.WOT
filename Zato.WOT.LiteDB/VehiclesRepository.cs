@@ -9,7 +9,7 @@ namespace Zato.WOT.LiteDB
 {
 	public class VehiclesRepository : WotDB
 	{
-		public void PersistOrUpdateVehicle(Vehicles vh)
+		public void PersistOrUpdateVehicle(Vehicles vh, bool fullup = false)
 		{
 			try
 			{
@@ -17,8 +17,15 @@ namespace Zato.WOT.LiteDB
 
 				foreach (var item in vh.Data)
 				{
-					if (!vehicles.Exists(x => x.TankId == item.Value.TankId))
+					var tankExists = vehicles.Exists(x => x.TankId == item.Value.TankId);
+					if (!tankExists)
+					{
 						vehicles.Insert(item.Value);
+					}
+					else if (fullup && tankExists)
+					{
+						vehicles.Upsert(item.Value);
+					}
 				}
 
 				vehicles.EnsureIndex(x => x.TankId);

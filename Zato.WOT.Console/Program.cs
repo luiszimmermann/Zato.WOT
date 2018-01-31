@@ -7,6 +7,8 @@ using System.Linq;
 using Zato.WOT.LiteDB;
 using Zato.WOT.DataModel;
 using MoreLinq;
+using CConsole = Colorful.Console;
+using System.Drawing;
 
 namespace Zato.WOT.Console
 {
@@ -16,26 +18,24 @@ namespace Zato.WOT.Console
 		{
 			try
 			{
-				s.Console.Title = "Zato WOT Console";
-				s.Console.WriteLine("______________________");
-				s.Console.WriteLine("|  ____     _        |");
-				s.Console.WriteLine("| |_  /__ _| |_ ___  |");
-				s.Console.WriteLine("|  / // _` |  _/ _ \\ |");
-				s.Console.WriteLine("| /___\\__,_|\\__\\___/ |");
-				s.Console.WriteLine("|____________________|");
-				s.Console.WriteLine("");
+				CConsole.Title = "Zato WOT Console";
+				WriteZatoLogo();
 
 				var ps = new PlayerService("1c60ba94ce97011add8a22f7fca8b4a6");
 				var vs = new VehicleService("1c60ba94ce97011add8a22f7fca8b4a6");
 
-				s.Console.WriteLine("Update Vehicles Internal Database? ([n]/y)");
+				s.Console.WriteLine("Update Vehicles Internal Database? ([n]/y/full)");
 				var upvh = s.Console.ReadLine();
 				Task<Vehicles> tvh = null;
-				if (upvh.ToUpper() == "Y")
+
+				var fullup = false;
+				fullup = upvh.ToUpper() == "FULL";
+
+				if (upvh.ToUpper() == "Y" || fullup)
 				{
+
 					s.Console.WriteLine("Getting Vehicles from WOTBlitz API in background...");
 					tvh = vs.GetAllTanks();
-					//tvh.Start();
 				}
 
 				while (true)
@@ -56,16 +56,13 @@ namespace Zato.WOT.Console
 					var format2column = "{0,8}: {1,-25}  |  {0,8}: {2,-25}";
 
 					s.Console.WriteLine(string.Format(format, "Nickname", p.Nickname));
-					//s.Console.WriteLine(string.Format(format, " Frags", p.Statistics.All.Frags));
-					//s.Console.WriteLine(string.Format(format, " Hits", p.Statistics.All.Hits));
 					s.Console.WriteLine(string.Format(format, "Battles", p.Statistics.All.Battles));
 					s.Console.WriteLine(string.Format(format, "Wins", p.Statistics.All.Wins));
 					s.Console.WriteLine(string.Format(format, "Losses", p.Statistics.All.Losses));
 					s.Console.WriteLine(string.Format(format, "Win %", p.Statistics.All.WinPercent));
 					s.Console.WriteLine("");
 
-					s.Console.WriteLine("Vehicles");
-					s.Console.WriteLine("");
+
 
 					spinner = new Spinner(s.Console.CursorLeft, s.Console.CursorTop);
 					spinner.Start();
@@ -79,20 +76,24 @@ namespace Zato.WOT.Console
 					if (tvh != null)
 					{
 						var alltvh = await tvh;
-						vhRepo.PersistOrUpdateVehicle(alltvh);
+						vhRepo.PersistOrUpdateVehicle(alltvh, fullup);
 					}
-
-					foreach (var item in vh.OrderByDescending(x => x.All.Battles).Take(10).Batch(2).Select(x => x.ToArray()))
+					if (vh.Any())
 					{
-						var tankData0 = vhRepo.GetVehicleById(item[0].TankId);
-						var tankData1 = vhRepo.GetVehicleById(item[1].TankId);
-
-						s.Console.WriteLine(string.Format(format2column, "Tank", tankData0.DisplayName, tankData1.DisplayName));
-						s.Console.WriteLine(string.Format(format2column, "Premium", tankData0.IsPremium, tankData1.IsPremium));
-						//s.Console.WriteLine(string.Format(format, "Frags", item.All.Frags));
-						s.Console.WriteLine(string.Format(format2column, "Battles", item[0].All.Battles, item[1].All.Battles));
-						s.Console.WriteLine(string.Format(format2column, "Win %", item[0].All.WinPercent, item[1].All.WinPercent));
+						s.Console.WriteLine("Player Top 10 Battles Vehicles");
 						s.Console.WriteLine("");
+						foreach (var item in vh.OrderByDescending(x => x.All.Battles).Take(10).Batch(2).Select(x => x.ToArray()))
+						{
+							var tankData0 = vhRepo.GetVehicleById(item[0].TankId);
+							var tankData1 = vhRepo.GetVehicleById(item[1].TankId);
+
+							s.Console.WriteLine(string.Format(format2column, "Tank", tankData0.DisplayName, tankData1.DisplayName));
+							s.Console.WriteLine(string.Format(format2column, "Premium", tankData0.IsPremium, tankData1.IsPremium));
+							//s.Console.WriteLine(string.Format(format, "Frags", item.All.Frags));
+							s.Console.WriteLine(string.Format(format2column, "Battles", item[0].All.Battles, item[1].All.Battles));
+							s.Console.WriteLine(string.Format(format2column, "Win %", item[0].All.WinPercent, item[1].All.WinPercent));
+							s.Console.WriteLine("");
+						}
 					}
 
 				}
@@ -101,6 +102,23 @@ namespace Zato.WOT.Console
 			{
 				s.Console.WriteLine(ex);
 			}
+		}
+
+		private static void WriteZatoLogo()
+		{
+			CConsole.WriteLine(" ______________________", Color.Red);
+
+			string[] zatoASCII = { "  ____     _        ", " |_  /__ _| |_ ___  ", "  / // _` |  _/ _ \\ ", " /___\\__,_|\\__\\___/ " };
+
+			foreach (var part in zatoASCII)
+			{
+				CConsole.Write(" |", Color.Red);
+				CConsole.Write(part, Color.Green);
+				CConsole.WriteLine("|", Color.Red);
+			}
+
+			CConsole.WriteLine(" |____________________|", Color.Red);
+			CConsole.WriteLine("");
 		}
 	}
 }

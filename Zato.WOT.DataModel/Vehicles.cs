@@ -27,23 +27,23 @@ namespace Zato.WOT.DataModel
 
 	public partial class VehicleInsideData
 	{
-		//[JsonProperty("suspensions")]
-		//public List<long> Suspensions { get; set; }
+		[JsonProperty("suspensions")]
+		public List<long?> Suspensions { get; set; }
 
-		//[JsonProperty("description")]
-		//public string Description { get; set; }
+		[JsonProperty("description")]
+		public string Description { get; set; }
 
-		//[JsonProperty("engines")]
-		//public List<long> Engines { get; set; }
+		[JsonProperty("engines")]
+		public List<long?> Engines { get; set; }
 
-		//[JsonProperty("prices_xp")]
-		//public PricesXp PricesXp { get; set; }
-		//
-		//[JsonProperty("next_tanks")]
-		//public NextTanks NextTanks { get; set; }
+		[JsonProperty("prices_xp")]
+		public Dictionary<string, long> PricesXp { get; set; }
 
-		//[JsonProperty("modules_tree")]
-		//public ModulesTree ModulesTree { get; set; }
+		[JsonProperty("next_tanks")]
+		public Dictionary<string, long> NextTanks { get; set; }
+
+		[JsonProperty("modules_tree")]
+		public Dictionary<string, Module> ModulesTree { get; set; }
 
 		[JsonProperty("nation")]
 		public string Nation { get; set; }
@@ -51,14 +51,14 @@ namespace Zato.WOT.DataModel
 		[JsonProperty("is_premium")]
 		public bool IsPremium { get; set; }
 
-		//[JsonProperty("images")]
-		//public Images Images { get; set; }
+		[JsonProperty("images")]
+		public Images Images { get; set; }
 
-		//[JsonProperty("cost")]
-		//public Cost Cost { get; set; }
+		[JsonProperty("cost")]
+		public Cost Cost { get; set; }
 
-		//[JsonProperty("default_profile")]
-		//public DefaultProfile DefaultProfile { get; set; }
+		[JsonProperty("default_profile")]
+		public DefaultProfile DefaultProfile { get; set; }
 
 		[JsonProperty("tier")]
 		public long Tier { get; set; }
@@ -67,14 +67,14 @@ namespace Zato.WOT.DataModel
 		[JsonProperty("tank_id")]
 		public long TankId { get; set; }
 
-		//[JsonProperty("type")]
-		//public string PurpleType { get; set; }
+		[JsonProperty("type")]
+		public string PurpleType { get; set; }
 
-		//[JsonProperty("guns")]
-		//public List<long> Guns { get; set; }
+		[JsonProperty("guns")]
+		public List<long?> Guns { get; set; }
 
-		//[JsonProperty("turrets")]
-		//public List<long> Turrets { get; set; }
+		[JsonProperty("turrets")]
+		public List<long?> Turrets { get; set; }
 
 		[JsonIgnore]
 		public string DisplayName
@@ -183,7 +183,7 @@ namespace Zato.WOT.DataModel
 		public Gun Gun { get; set; }
 
 		[JsonProperty("turret_id")]
-		public long TurretId { get; set; }
+		public long? TurretId { get; set; }
 
 		[JsonProperty("turret")]
 		public Turret Turret { get; set; }
@@ -345,40 +345,7 @@ namespace Zato.WOT.DataModel
 		public string Normal { get; set; }
 	}
 
-	public partial class ModulesTree
-	{
-		[JsonProperty("2")]
-		public The1284 The2 { get; set; }
-
-		[JsonProperty("3")]
-		public The1284 The3 { get; set; }
-
-		[JsonProperty("4")]
-		public The1284 The4 { get; set; }
-
-		[JsonProperty("5")]
-		public The1284 The5 { get; set; }
-
-		[JsonProperty("258")]
-		public The1284 The258 { get; set; }
-
-		[JsonProperty("259")]
-		public The1284 The259 { get; set; }
-
-		[JsonProperty("261")]
-		public The1284 The261 { get; set; }
-
-		[JsonProperty("516")]
-		public The1284 The516 { get; set; }
-
-		[JsonProperty("1284")]
-		public The1284 The1284 { get; set; }
-
-		[JsonProperty("1540")]
-		public The1284 The1540 { get; set; }
-	}
-
-	public partial class The1284
+	public partial class Module
 	{
 		[JsonProperty("name")]
 		public string Name { get; set; }
@@ -404,22 +371,4 @@ namespace Zato.WOT.DataModel
 		[JsonProperty("type")]
 		public string PurpleType { get; set; }
 	}
-
-	//public partial class NextTanks
-	//{
-	//	[JsonProperty("257")]
-	//	public long The257 { get; set; }
-	//
-	//	[JsonProperty("2561")]
-	//	public long The2561 { get; set; }
-	//
-	//	[JsonProperty("16641")]
-	//	public long The16641 { get; set; }
-	//}
-	//
-	//public partial class PricesXp
-	//{
-	//	[JsonProperty("2049")]
-	//	public long The2049 { get; set; }
-	//}
 }
